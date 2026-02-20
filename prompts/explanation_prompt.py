@@ -1,18 +1,12 @@
-EXPLANATION_PROMPT = """
+def build_prompt(question, answer, context):
+    return f"""
+You are an educational assistant.
+Explain why the correct answer is "{answer}".
+Use only the provided textbook context.
+
 Context:
 {context}
 
-Question: {question}
-Correct answer: {answer}
-
-Explain why this answer is correct based on the context above.
+Question:
+{question}
 """
-
-def build_prompt(question, answer, context):
-    if isinstance(context, list):
-        context = "\n\n".join(str(c) for c in context)
-    return EXPLANATION_PROMPT.format(
-        question=question,
-        answer=answer,
-        context=context
-    )
