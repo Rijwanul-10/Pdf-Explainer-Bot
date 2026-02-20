@@ -6,3 +6,7 @@ def create_vector_store(text_chunks):
     texts = [c["text"] for c in text_chunks]
     metadatas = [{"page": c["page"], "chapter": c["chapter"]} for c in text_chunks]
     return FAISS.from_texts(texts, embeddings, metadatas=metadatas)
+
+def embed_store(state):
+    state.vector_store = create_vector_store(state.documents)
+    return state

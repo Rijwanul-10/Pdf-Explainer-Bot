@@ -1,6 +1,6 @@
 from langchain_community.document_loaders import PyPDFLoader
 
-def load_pdf_with_metadata(pdf_path, chapter):
+def load_pdf_with_metadata(pdf_path, chapter=""):
     loader = PyPDFLoader(pdf_path)
     docs = loader.load()
 
@@ -13,3 +13,8 @@ def load_pdf_with_metadata(pdf_path, chapter):
         })
 
     return enriched_docs
+
+def load_pdf(state):
+    chapter = getattr(state, "chapter", "") or ""
+    state.documents = load_pdf_with_metadata(state.pdf_path, chapter)
+    return state
